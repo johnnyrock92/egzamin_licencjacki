@@ -10,3 +10,15 @@ SEMESTR II
 * [Algebra Liniowa](https://github.com/johnnyrock92/egzamin_licencjacki/blob/master/Algebra%20Liniowa)
 * [Bazy Danych](https://github.com/johnnyrock92/egzamin_licencjacki/blob/master/Bazy%20Danych)
 * []()
+
+SEMESTR III
+* []()
+
+SEMESTR IV
+* []()
+
+SEMESTR V
+* []()
+
+SEMESTR VI
+* []()
