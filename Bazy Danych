@@ -1,0 +1,13 @@
+Jakie znasz pojęcia klucza w teorii relacyjnych baz danych? Jakie słowa w SQL służą do zaznaczenia klucza?
+
+Jakie znasz warunki poprawności (więzy) dla tabel bazy danych?
+
+Omów pojęcie transakcji, jakie są główne własności transakcji, podaj przykłady negatywnych zjawisk gdy nie zastosowano transakcji.
+
+Jakie są negatywne strony istnienia redundancji w bazie danych. Podaj przykłady. Jakie są sposoby zwalczania redundancji?
+
+W jaki sposób język SQL realizuje operację rzutu relacji a w jaki sposób realizuje operację wyboru (obcięcia) relacji? Jakie jeszcze znasz operacje i ich sposób realizacji w SQL?
+
+Podaj trzy rodzaje związków rozpatrywane w teorii relacyjnych baz danych. W jaki sposób są one realizowane w języku SQL?
+
+Jakie problemy stwarza usuwanie w obecności klucza obcego, jakie istnieją rozwiązania?
