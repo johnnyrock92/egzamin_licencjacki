@@ -89,4 +89,8 @@ Podaj trzy rodzaje związków rozpatrywane w teorii relacyjnych baz danych. W ja
 
 Jakie problemy stwarza usuwanie w obecności klucza obcego, jakie istnieją rozwiązania?
   Usuwanie w obecności klucza obcego hamuje usuwanie danych ponieważ dane które chce się usunąć są powiązane relacją z danymi w innej tabeli.
-  Aby umożliwić usunięcie trzeba dodać podczas tworzenia tabeli z kluczem obcym deklaracji ON DELETE CASCADE na samym końcu tworzenia tabeli.
+  Aby umożliwić usunięcie trzeba dodać podczas tworzenia tabeli z kluczem obcym deklaracji:
+  - ON DELETE CASCADE
+  - ON DELETE SET NULL
+  - ON DELETE NO ACTION
+  na samym końcu tworzenia tabeli.
