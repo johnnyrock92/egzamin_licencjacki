@@ -23,8 +23,8 @@ Własności transakcji jest 4: ACID
 - D - Durable - trwała
 
 Jakie są negatywne strony istnienia redundancji w bazie danych. Podaj przykłady. Jakie są sposoby zwalczania redundancji?
-- nadmiarowość, czyli powtarzalność danych (zachodzi w 1NF),
-- aktualizacja danej komórki nie aktualizuje w innych komórkach,
+- nadmiarowość, czyli powtarzalność danych,
+- aktualizacja (modyfikacja) wartości powtarzającej się w innych encjach nie aktualizuje jej w tych encjach,
 
 
 Sposobem na zwalczenie redundancji jest normalizacja czyli doprowadzenie do jednej z pięciu postaci normalnych:
