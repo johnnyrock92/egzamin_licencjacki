@@ -1,13 +1,92 @@
 Jakie znasz pojęcia klucza w teorii relacyjnych baz danych? Jakie słowa w SQL służą do zaznaczenia klucza?
+- Klucz główny, kandydujący (w SQLu: PRIMARY KEY)
+- Klucz obcy, (w SQLu: FOREIGN KEY)
 
 Jakie znasz warunki poprawności (więzy) dla tabel bazy danych?
 
 Omów pojęcie transakcji, jakie są główne własności transakcji, podaj przykłady negatywnych zjawisk gdy nie zastosowano transakcji.
+Transakcja to niepodzielna jednostka działań
+- albo wykonają się wszystkie operacje w transakcji, albo żadna
+- nowe wartości muszą być zatwierdzone COMMIT
+- transakcja zajmuje zero czasu
+
+Własności transakcji jest 4: ACID
+- A - Atomic - atomowa
+- C - Consistency - spójna
+- I - Isolated - odizolowana
+- D - Durable - trwała
 
 Jakie są negatywne strony istnienia redundancji w bazie danych. Podaj przykłady. Jakie są sposoby zwalczania redundancji?
+- nadmiarowość, czyli powtarzalność danych (zachodzi w 1NF),
+- aktualizacja danej komórki nie aktualizuje w innych komórkach,
+
+
+Sposobem na zwalczenie redundancji jest normalizacja czyli doprowadzenie do jednej z pięciu postaci normalnych:
+- 1NF
+- 2NF
+- 3NF (najczęściej używana)
+- 3.5NF
+- 4NF
+- 5NF 
 
 W jaki sposób język SQL realizuje operację rzutu relacji a w jaki sposób realizuje operację wyboru (obcięcia) relacji? Jakie jeszcze znasz operacje i ich sposób realizacji w SQL?
+- operacja rzutu, wyciąga wybrane dane z tabeli po kolei:
+  SELECT imie, nazwisko FROM klient;
+  
+- operacja obcięcia, wyciąga wybraną encję z tabeli:
+  SELECT * FROM klient WHERE id=2;
+  
+- operacja złączenia:
+  SELECT imie, nazwisko, zamowienie.nr AS zamowienie_nr
+  FROM klient, zamowienie
+  WHERE klient.nr=zamowienie.klient_nr;
+  
+- operacja złączenia (lepsza wersja):
+  SELECT imie, nazwisko, zamowienie.nr AS zamowienie_nr
+  FROM klient INNER JOIN zamowienie ON klient.nr=zamowienie.klient_nr;
+  
+- samozłączenie:
+  SELECT Z1.nr AS zam1, Z2.nr AS zam2, Z2.klient_nr
+  FROM zamowienie AS Z1, zamowienie Z2
+  WHERE Z1.klient_nr=Z2.klient_nr AND Z1.nr < Z2.nr;
+  
+- grupowanie:
+  SELECT nazwisko FROM klient GROUP BY nazwisko HAVING count(nazwisko) > 1;
+
+- zagnieżdżenie nieskorelowane:
+  SELECT imie, nazwisko, miasto
+  FROM klient
+  WHERE nazwisko IN (SELECT nazwisko FROM klient GROUP BY nazwisko HAVING count(nazwisko) > 1);
+  
+- zagnieżdżenie skorelowane:
+  SELECT imie, nazwisko
+  FROM klient
+  WHERE NOT EXISTS
+    (SELECT *
+     FROM zamowienie INNER JOIN pozycja
+     ON klient.nr=zamowienie.klient_nr
+        AND zamowienie.nr=pozycja.zamowienie_nr);
 
 Podaj trzy rodzaje związków rozpatrywane w teorii relacyjnych baz danych. W jaki sposób są one realizowane w języku SQL?
+- związek jeden do jeden -|-----|-    TABELA_1 -|-----|- TABELA_2
+  - tworzymy dwie tabele,
+  - w pierwszej jest klucz główny PRIMARY KEY,
+  - w drugiej tabeli jest klucz główny PRIMARY KEY, który jest zarazem kluczem obcym FOREIGN KEY
+  
+- związek jeden do wiele -|-----<     TABELA_1 -|-----< TABELA_2
+  - tworzymy dwie tabele,
+  - w pierwszej tabeli (po stronie JEDEN) jest klucz główny PRIMARY KEY,
+  - w drugiej tabeli (po stronie WIELE) jest klucz główny PRIMARY KEY oraz klucz obcy FOREIGN KEY,
+    który jest adresatem klucza głównego pierwszej tabeli
+  
+- związek wiele do wiele >-----<      TABELA_1 -|-----< TABELA_2 >-----|- TABELA_3
+  - tworzymy trzy tabele,
+  - pierwsza tabela (po stronie JEDEN) ma klucz główny PRIMARY KEY,
+  - druga tabela (po stronie WIELE) jest tabelą pośredniczącą pomiędzy tabelą pierwszą i trzecią,
+    są w niej klucze obce FOREIGN KEY, które są adresatami kluczy głównych tabeli pierwszej oraz tabeli trzeciej,
+    klucz główny PRIMARY KEY nie jest wymagany,
+  - trzecia tabela (po stronie JEDEN) ma klucz główny PRIMARY KEY
 
 Jakie problemy stwarza usuwanie w obecności klucza obcego, jakie istnieją rozwiązania?
+  Usuwanie w obecności klucza obcego hamuje usuwanie danych ponieważ dane które chce się usunąć są powiązane relacją z danymi w innej tabeli.
+  Aby umożliwić usunięcie trzeba dodać podczas tworzenia tabeli z kluczem obcym deklaracji ON DELETE CASCADE na samym końcu tworzenia tabeli.
