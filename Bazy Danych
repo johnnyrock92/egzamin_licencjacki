@@ -3,29 +3,43 @@ Jakie znasz pojęcia klucza w teorii relacyjnych baz danych? Jakie słowa w SQL 
 - Klucz obcy, (w SQLu: FOREIGN KEY)
 
 Jakie znasz warunki poprawności (więzy) dla tabel bazy danych?
-NULL
-NOT NULL
-UNIQUE
-CONSTRAINT nazwa_klucza_PK PRIMARY KEY(id)
-CONSTRAINT nazwa_klucza_FK FOREIGN KEY(tabela_id) REFERENCES tabela(id)
-CHECK
+- NULL
+- NOT NULL
+- UNIQUE
+- CONSTRAINT nazwa_klucza_PK PRIMARY KEY(id)
+- CONSTRAINT nazwa_klucza_FK FOREIGN KEY(tabela_id) REFERENCES tabela(id)
+- CHECK
 
 Omów pojęcie transakcji, jakie są główne własności transakcji, podaj przykłady negatywnych zjawisk gdy nie zastosowano transakcji.
-Transakcja to niepodzielna jednostka działań
+Transakcja to niepodzielna jednostka działań:
 - albo wykonają się wszystkie operacje w transakcji, albo żadna
 - nowe wartości muszą być zatwierdzone COMMIT
 - transakcja zajmuje zero czasu
 
 Własności transakcji jest 4: ACID
-- A - Atomic - atomowa
-- C - Consistency - spójna
-- I - Isolated - odizolowana
-- D - Durable - trwała
+- A - Atomic - atomowa = transakcja nie może być dzielona na operacje
+- C - Consistency - spójna = po zatwierdzeniu (lub cofnięciu) transakcji baza danych jest spójna jak przed transakcją
+- I - Isolated - odizolowana = traktowana jak by była jedyną transakcją w systemie
+- D - Durable - trwała = zatwierdzenie transakcji oznacza, że jej wyniki są trwale widoczne w bazie
+
+Negatywnym zjawiskiem może być np. odczyt klienta, który chciał sprawdzić cenę maksymalną i minimalną czegoś co było/jest w bazie,
+ale w tym czasie administrator bazy dokonał aktualizacji bazy i wyniki dla klienta mogą być niespodziewane.
+
+BATONIK cena = 2 zł
+BOMBONIERKA cena = 30 zł
+Po Update administratora:
+BATONIK cena = 3 zł
+BOMBONIERKA cena = 15 zł
+
+      |   Klient   |   Administrator   |
+0 min |  min(cena) |   update(cena)    |
+      |  max(cena) |                   |
+1 min |  min = 2   |                   |
+      |  max = 15  |                   |
 
 Jakie są negatywne strony istnienia redundancji w bazie danych. Podaj przykłady. Jakie są sposoby zwalczania redundancji?
 - nadmiarowość, czyli powtarzalność danych,
 - aktualizacja (modyfikacja) wartości powtarzającej się w innych encjach nie aktualizuje jej w tych encjach,
-
 
 Sposobem na zwalczenie redundancji jest normalizacja czyli doprowadzenie do jednej z pięciu postaci normalnych:
 - 1NF
