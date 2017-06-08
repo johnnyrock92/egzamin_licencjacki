@@ -32,8 +32,10 @@ BATONIK cena = 3 zł
 BOMBONIERKA cena = 15 zł
 
       |   Klient   |   Administrator   |
+----------------------------------------
 0 min |  min(cena) |   update(cena)    |
       |  max(cena) |                   |
+----------------------------------------
 1 min |  min = 2   |                   |
       |  max = 15  |                   |
 
