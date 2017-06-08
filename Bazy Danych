@@ -3,12 +3,8 @@ Jakie znasz pojęcia klucza w teorii relacyjnych baz danych? Jakie słowa w SQL 
 - Klucz obcy, (w SQLu: FOREIGN KEY)
 
 Jakie znasz warunki poprawności (więzy) dla tabel bazy danych?
-- NULL
-- NOT NULL
-- UNIQUE
-- CONSTRAINT nazwa_klucza_PK PRIMARY KEY(id)
-- CONSTRAINT nazwa_klucza_FK FOREIGN KEY(tabela_id) REFERENCES tabela(id)
-- CHECK
+- CHECK (price > 0)
+- CHECK (discounted_price > 0 AND price > discounted_price)
 
 Omów pojęcie transakcji, jakie są główne własności transakcji, podaj przykłady negatywnych zjawisk gdy nie zastosowano transakcji.
 Transakcja to niepodzielna jednostka działań:
