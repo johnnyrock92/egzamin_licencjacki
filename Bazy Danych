@@ -50,13 +50,13 @@ Klient odpala polecenie: SELECT min(cena), max(cena) FROM towar;
 Otrzymuje wynik: min = 2 i max = 30 
 Chwilę później Administrator odpala transakcję poleceniem BEGIN;
       W TYM MOMENCIE KLIENT POSTANAWIA PONOWNIE ODPALIĆ POLECENIE: SELECT min(cena), max(cena) FROM towar;
-      ALE PRZEZ TO ŻE JEST URUCHOMIONA TRANSAKCJA, KLIENT MUSI POCZEKAĆ NA WYNIK TAK DŁUGO AŻ ADMINISTRATOR ZATWIERDZI ZMIANY
-Administrator aktualizuje ceny produktów:
+      PONOWNIE OTRZYMUJE WYNIK: min = 2 i max = 30 
+W tym czasie administrator aktualizuje ceny produktów:
 UPDATE towar SET cena=3 WHERE nazwa LIKE '%BATONIK%';
 UPDATE towar SET cena=15 WHERE nazwa LIKE '%BOMBONIERKA%';
 a na końcu zatwierdza wprowadzone zmiany poleceniem COMMIT;
-      KLIENT NIEZWŁOCZNIE PO ZATWIERDZENIU ZMIAN PRZEZ ADMINISTRATORA OTRZYMUJE WYNIK: min = 3 i max = 15
-
+      KLIENT POSTANAWIA TRZECI RAZ SPRAWDZIĆ CENY PRODUKTÓW: SELECT min(cena), max(cena) FROM towar;
+      OTRZYMUJE NOWY WYNIK: min = 3 i max = 15
 
       |   Klient   |   Administrator   |
 ----------------------------------------
@@ -66,11 +66,16 @@ a na końcu zatwierdza wprowadzone zmiany poleceniem COMMIT;
       |  min = 2   |                   |
       |  max = 30  |                   |
 ----------------------------------------
-1 min |            |      BEGIN        |
-      |  min(cena) |   update(cena)    |
-      |  max(cena) |      COMMIT       |
+1 min |  min(cena) |      BEGIN        |
+      |  max(cena) |   update(cena)    |
+      |  WYNIK:    |                   |
+      |  min = 2   |                   |
+      |  max = 30  |                   |      
+      |            |      COMMIT       |
 ----------------------------------------
-2 min |  WYNIK:    |                   |
+2 min |  min(cena) |                   |
+      |  max(cena) |                   |
+      |  WYNIK:    |                   |
       |  min = 3   |                   |
       |  max = 15  |                   |
       
