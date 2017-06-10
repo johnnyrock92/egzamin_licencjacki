@@ -27,7 +27,7 @@ Po Update administratora:
 BATONIK cena = 3 zł
 BOMBONIERKA cena = 15 zł
 
-Scenariusz 1:
+SCENARIUSZ 1:
 Klient odpala polecenie: SELECT min(cena), max(cena) FROM towar;
 W dokładnie tym samym momencie Administrator bazy aktualizuje ceny produktów poleceniami:
 UPDATE towar SET cena=3 WHERE nazwa LIKE '%BATONIK%';
@@ -45,7 +45,7 @@ Wynik zapytania klienta może być różny, ponieważ może częściowo pochodzi
 
 Gdyby była uruchomiona transakcja:
 
-Scenariusz 2:
+SCENARIUSZ 2:
 Klient odpala polecenie: SELECT min(cena), max(cena) FROM towar;
 Otrzymuje wynik: min = 2 i max = 30 
 Chwilę później Administrator odpala transakcję poleceniem BEGIN;
