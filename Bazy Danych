@@ -1,22 +1,22 @@
-Jakie znasz pojęcia klucza w teorii relacyjnych baz danych? Jakie słowa w SQL służą do zaznaczenia klucza?
+1. Jakie znasz pojęcia klucza w teorii relacyjnych baz danych? Jakie słowa w SQL służą do zaznaczenia klucza?
 - Klucz główny, kandydujący (w SQLu: PRIMARY KEY)
 - Klucz obcy, (w SQLu: FOREIGN KEY)
 
-Jakie znasz warunki poprawności (więzy) dla tabel bazy danych?
+2. Jakie znasz warunki poprawności (więzy) dla tabel bazy danych?
 - CHECK (price > 0)
 - CHECK (discounted_price > 0 AND price > discounted_price)
 
-Omów pojęcie transakcji, jakie są główne własności transakcji, podaj przykłady negatywnych zjawisk gdy nie zastosowano transakcji.
+3. Omów pojęcie transakcji, jakie są główne własności transakcji, podaj przykłady negatywnych zjawisk gdy nie zastosowano transakcji.
 Transakcja to niepodzielna jednostka działań:
 - albo wykonają się wszystkie operacje w transakcji, albo żadna
 - nowe wartości muszą być zatwierdzone COMMIT
 - transakcja zajmuje zero czasu
 
 Własności transakcji jest 4: ACID
-- A - Atomic - atomowa = transakcja nie może być dzielona na operacje
+- A - Atomic - atomowa, niepodzielna = transakcja ma być wykonana w całości albo wcale
 - C - Consistency - spójna = po zatwierdzeniu (lub cofnięciu) transakcji baza danych jest spójna jak przed transakcją
 - I - Isolated - odizolowana = traktowana jak by była jedyną transakcją w systemie
-- D - Durable - trwała = zatwierdzenie transakcji oznacza, że jej wyniki są trwale widoczne w bazie
+- D - Durable - trwała = jeśli transakcja zakończy się pomyślnie, to jej wyniki nie mogą zostać utracone z powodu awarii systemu
 
 Negatywnym zjawiskiem może być np. odczyt klienta, który chciał sprawdzić cenę maksymalną i minimalną czegoś co było/jest w bazie,
 ale w tym czasie administrator bazy dokonał aktualizacji bazy i wyniki dla klienta mogą być niespodziewane.
@@ -80,7 +80,7 @@ a na końcu zatwierdza wprowadzone zmiany poleceniem COMMIT;
       |  max = 15  |                   |
       
 
-Jakie są negatywne strony istnienia redundancji w bazie danych. Podaj przykłady. Jakie są sposoby zwalczania redundancji?
+4. Jakie są negatywne strony istnienia redundancji w bazie danych. Podaj przykłady. Jakie są sposoby zwalczania redundancji?
 Jeden z celów, który staramy się osiągnąć podczas projektowania schematu bazy danych to unikanie redundancji (nadmiarowości).
 Redundancja oznacza, że niektóre informacje są zapisane w bazie danych wielokrotnie.
 Prowadzi to do anomalii podczas modyfikacji i usuwania
@@ -88,7 +88,7 @@ Prowadzi to do anomalii podczas modyfikacji i usuwania
 - REDUNDANCJA oznacza nadmiarowość, czyli powtarzalność danych,
 - aktualizacja (modyfikacja) wartości powtarzającej się w innych encjach nie aktualizuje jej w tych encjach,
 
-Co to jest Normalizacja ?
+5. Co to jest Normalizacja ?
 Normalizacja to proces, służący do przekształcenia schematu zawierającego redundancję w schemat, który jej nie zawiera.
 Zależnie od potrzeb określa się różne poziomy normalizacji — zakresy usuwania redundancji, nazywane postaciami normalnymi.
 
@@ -100,7 +100,7 @@ Można wyszczególnić kilka postaci normalnych:
 - 4NF
 - 5NF
 
-W jaki sposób język SQL realizuje operację rzutu relacji a w jaki sposób realizuje operację wyboru (obcięcia) relacji? Jakie jeszcze znasz operacje i ich sposób realizacji w SQL?
+6. W jaki sposób język SQL realizuje operację rzutu relacji a w jaki sposób realizuje operację wyboru (obcięcia) relacji? Jakie jeszcze znasz operacje i ich sposób realizacji w SQL?
 - operacja rzutu, wyciąga wybrane dane z tabeli po kolei:
   SELECT imie, nazwisko FROM klient;
   
@@ -138,7 +138,7 @@ W jaki sposób język SQL realizuje operację rzutu relacji a w jaki sposób rea
      ON klient.nr=zamowienie.klient_nr
         AND zamowienie.nr=pozycja.zamowienie_nr);
 
-Podaj trzy rodzaje związków rozpatrywane w teorii relacyjnych baz danych. W jaki sposób są one realizowane w języku SQL?
+7. Podaj trzy rodzaje związków rozpatrywane w teorii relacyjnych baz danych. W jaki sposób są one realizowane w języku SQL?
 - związek jeden do jeden -|-----|-    TABELA_1 -|-----|- TABELA_2
   - tworzymy dwie tabele,
   - w pierwszej jest klucz główny PRIMARY KEY,
@@ -158,7 +158,7 @@ Podaj trzy rodzaje związków rozpatrywane w teorii relacyjnych baz danych. W ja
     klucz główny PRIMARY KEY nie jest wymagany,
   - trzecia tabela (po stronie JEDEN) ma klucz główny PRIMARY KEY
 
-Jakie problemy stwarza usuwanie w obecności klucza obcego, jakie istnieją rozwiązania?
+8. Jakie problemy stwarza usuwanie w obecności klucza obcego, jakie istnieją rozwiązania?
   Usuwanie w obecności klucza obcego hamuje usuwanie danych ponieważ dane które chce się usunąć są powiązane relacją z danymi w innej tabeli.
   Aby umożliwić usunięcie trzeba dodać podczas tworzenia tabeli z kluczem obcym deklaracji:
   - ON DELETE CASCADE
