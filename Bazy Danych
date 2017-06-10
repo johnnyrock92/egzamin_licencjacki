@@ -31,12 +31,43 @@ BOMBONIERKA cena = 15 zł
 ----------------------------------------
 0 min |  min(cena) |   update(cena)    |
       |  max(cena) |                   |
-----------------------------------------
-1 min |  min = 2   |                   |
+      |  WYNIK:    |                   |
+      |  min = 2   |                   |
       |  max = 15  |                   |
 
+
+Gdyby była uruchomiona transakcja:
+
+      |   Klient   |   Administrator   |
+----------------------------------------
+0 min |  min(cena) |      BEGIN        |
+      |  max(cena) |   update(cena)    |
+      |            |      COMMIT       |
+----------------------------------------
+1 min |  min = 3   |                   |
+      |  max = 15  |                   |
+      
+LUB
+
+      |   Klient   |   Administrator   |
+----------------------------------------
+0 min |  min(cena) |                   |
+      |  max(cena) |                   |
+      |  WYNIK:    |                   |
+      |  min = 2   |                   |
+      |  max = 30  |                   |
+----------------------------------------
+1 min |  min(cena) |      BEGIN        |
+      |  max(cena) |   update(cena)    |
+      |            |      COMMIT       |
+----------------------------------------
+2 min |  WYNIK:    |                   |
+      |  min = 3   |                   |
+      |  max = 15  |                   |
+      
+
 Jakie są negatywne strony istnienia redundancji w bazie danych. Podaj przykłady. Jakie są sposoby zwalczania redundancji?
-- nadmiarowość, czyli powtarzalność danych,
+- REDUNDANCJA oznacza nadmiarowość, czyli powtarzalność danych,
 - aktualizacja (modyfikacja) wartości powtarzającej się w innych encjach nie aktualizuje jej w tych encjach,
 
 Sposobem na zwalczenie redundancji jest normalizacja czyli doprowadzenie do jednej z pięciu postaci normalnych:
