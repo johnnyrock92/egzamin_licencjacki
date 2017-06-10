@@ -57,9 +57,9 @@ LUB
       |  min = 2   |                   |
       |  max = 30  |                   |
 ----------------------------------------
-1 min |  min(cena) |      BEGIN        |
-      |  max(cena) |   update(cena)    |
-      |            |      COMMIT       |
+1 min |            |      BEGIN        |
+      |  min(cena) |   update(cena)    |
+      |  max(cena) |      COMMIT       |
 ----------------------------------------
 2 min |  WYNIK:    |                   |
       |  min = 3   |                   |
