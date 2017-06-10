@@ -1,3 +1,5 @@
+SQL - Structured Query Language - STRUKTURALNY JĘZYK ZAPYTAŃ
+
 1. Jakie znasz pojęcia klucza w teorii relacyjnych baz danych? Jakie słowa w SQL służą do zaznaczenia klucza?
 - Klucz główny, kandydujący (w SQLu: PRIMARY KEY)
 - Klucz obcy, (w SQLu: FOREIGN KEY)
@@ -20,6 +22,8 @@ Własności transakcji jest 4: ACID
 
 Negatywnym zjawiskiem może być np. odczyt klienta, który chciał sprawdzić cenę maksymalną i minimalną czegoś co było/jest w bazie,
 ale w tym czasie administrator bazy dokonał aktualizacji bazy i wyniki dla klienta mogą być niespodziewane.
+
+#PRZYKŁAD:
 
 BATONIK cena = 2 zł
 BOMBONIERKA cena = 30 zł
@@ -94,6 +98,17 @@ Zależnie od potrzeb określa się różne poziomy normalizacji — zakresy usuw
 
 Można wyszczególnić kilka postaci normalnych:
 - 1NF (1 Normal Form)
+      Warunkiem pierwszej postaci normalnej jest to, by każdy atrybut w relacji przyjmował tylko wartości niepodzielne
+      Np. imię i nazwisko ma być oddzielnie:
+      
+            PRZED NORMALIZACJĄ                                                            PO NORMALIZACJI DO 1NF
+      
+      imie i nazwisko | data_urodzenia                                             imie  |  nazwisko  | data_urodzenia
+      --------------------------------                   ---->                     -----------------------------------
+       Jan Kowalski   |  1980-10-15                                                 Jan  |  Kowalski  |  1980-10-15
+       Ola Nowak      |  1990-05-06                                                 Ola  |  Nowak     |  1990-05-06
+       
+
 - 2NF
 - 3NF (najczęściej używana)
 - 3.5NF
@@ -101,7 +116,7 @@ Można wyszczególnić kilka postaci normalnych:
 - 5NF
 
 6. W jaki sposób język SQL realizuje operację rzutu relacji a w jaki sposób realizuje operację wyboru (obcięcia) relacji? Jakie jeszcze znasz operacje i ich sposób realizacji w SQL?
-- operacja rzutu, wyciąga wybrane dane z tabeli po kolei:
+- operacja rzutu, wyciąga wybrane kolumny z danymi w tabeli:
   SELECT imie, nazwisko FROM klient;
   
 - operacja obcięcia, wyciąga wybraną encję z tabeli:
