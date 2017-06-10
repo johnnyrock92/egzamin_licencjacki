@@ -27,6 +27,13 @@ Po Update administratora:
 BATONIK cena = 3 zł
 BOMBONIERKA cena = 15 zł
 
+Scenariusz 1:
+Klient odpala polecenie: SELECT min(cena), max(cena) FROM towar;
+W dokładnie tym samym momencie Administrator bazy aktualizuje ceny produktów poleceniami:
+UPDATE towar SET cena=3 WHERE nazwa LIKE '%BATONIK%';
+UPDATE towar SET cena=15 WHERE nazwa LIKE '%BOMBONIERKA%';
+Wynik zapytania klienta może być różny, ponieważ może częściowo pochodzić sprzed aktualizacji ceny jak i po aktualizacji ceny.
+
       |   Klient   |   Administrator   |
 ----------------------------------------
 0 min |  min(cena) |   update(cena)    |
@@ -38,16 +45,18 @@ BOMBONIERKA cena = 15 zł
 
 Gdyby była uruchomiona transakcja:
 
-      |   Klient   |   Administrator   |
-----------------------------------------
-0 min |  min(cena) |      BEGIN        |
-      |  max(cena) |   update(cena)    |
-      |            |      COMMIT       |
-----------------------------------------
-1 min |  min = 3   |                   |
-      |  max = 15  |                   |
-      
-LUB
+Scenariusz 2:
+Klient odpala polecenie: SELECT min(cena), max(cena) FROM towar;
+Otrzymuje wynik: min = 2 i max = 30 
+Chwilę później Administrator odpala transakcję poleceniem BEGIN;
+      W TYM MOMENCIE KLIENT POSTANAWIA PONOWNIE ODPALIĆ POLECENIE: SELECT min(cena), max(cena) FROM towar;
+      ALE PRZEZ TO ŻE JEST URUCHOMIONA TRANSAKCJA, KLIENT MUSI POCZEKAĆ NA WYNIK TAK DŁUGO AŻ ADMINISTRATOR ZATWIERDZI ZMIANY
+Administrator aktualizuje ceny produktów:
+UPDATE towar SET cena=3 WHERE nazwa LIKE '%BATONIK%';
+UPDATE towar SET cena=15 WHERE nazwa LIKE '%BOMBONIERKA%';
+a na końcu zatwierdza wprowadzone zmiany poleceniem COMMIT;
+      KLIENT NIEZWŁOCZNIE PO ZATWIERDZENIU ZMIAN PRZEZ ADMINISTRATORA OTRZYMUJE WYNIK: min = 3 i max = 15
+
 
       |   Klient   |   Administrator   |
 ----------------------------------------
@@ -67,16 +76,24 @@ LUB
       
 
 Jakie są negatywne strony istnienia redundancji w bazie danych. Podaj przykłady. Jakie są sposoby zwalczania redundancji?
+Jeden z celów, który staramy się osiągnąć podczas projektowania schematu bazy danych to unikanie redundancji (nadmiarowości).
+Redundancja oznacza, że niektóre informacje są zapisane w bazie danych wielokrotnie.
+Prowadzi to do anomalii podczas modyfikacji i usuwania
+
 - REDUNDANCJA oznacza nadmiarowość, czyli powtarzalność danych,
 - aktualizacja (modyfikacja) wartości powtarzającej się w innych encjach nie aktualizuje jej w tych encjach,
 
-Sposobem na zwalczenie redundancji jest normalizacja czyli doprowadzenie do jednej z pięciu postaci normalnych:
-- 1NF
+Co to jest Normalizacja ?
+Normalizacja to proces, służący do przekształcenia schematu zawierającego redundancję w schemat, który jej nie zawiera.
+Zależnie od potrzeb określa się różne poziomy normalizacji — zakresy usuwania redundancji, nazywane postaciami normalnymi.
+
+Można wyszczególnić kilka postaci normalnych:
+- 1NF (1 Normal Form)
 - 2NF
 - 3NF (najczęściej używana)
 - 3.5NF
 - 4NF
-- 5NF 
+- 5NF
 
 W jaki sposób język SQL realizuje operację rzutu relacji a w jaki sposób realizuje operację wyboru (obcięcia) relacji? Jakie jeszcze znasz operacje i ich sposób realizacji w SQL?
 - operacja rzutu, wyciąga wybrane dane z tabeli po kolei:
