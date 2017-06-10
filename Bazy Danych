@@ -228,7 +228,7 @@ Można wyszczególnić kilka postaci normalnych:
   - pierwsza tabela (po stronie JEDEN) ma klucz główny PRIMARY KEY,
   - druga tabela (po stronie WIELE) jest tabelą pośredniczącą pomiędzy tabelą pierwszą i trzecią,
     są w niej klucze obce FOREIGN KEY, które są adresatami kluczy głównych tabeli pierwszej oraz tabeli trzeciej,
-    klucz główny PRIMARY KEY nie jest wymagany,
+    klucz główny PRIMARY KEY nie jest w tym przypadku wymagany,
   - trzecia tabela (po stronie JEDEN) ma klucz główny PRIMARY KEY
 
 8. Jakie problemy stwarza usuwanie w obecności klucza obcego, jakie istnieją rozwiązania?
