@@ -110,7 +110,65 @@ Można wyszczególnić kilka postaci normalnych:
        
 
 - 2NF
+      Aby stwierdzić, czy relacja będąca w pierwszej postaci normalnej jest także w drugiej, należy określić klucze relacji.
+      Warunkiem na drugą postać normalną jest to, aby każdy niekluczowy atrybut zależał funkcyjnie od całego klucza.
+      Niedozwolone są więc tzw. zależności częściowe.
+      
+      PRZED NORMALIZACJĄ                                                           
+      
+      imie  |  nazwisko  | data_urodzenia |   płeć   |  stanowisko  | płaca/h                            
+      -----------------------------------------------------------------------                 
+       Jan  |  Kowalski  |  1980-10-15    |  męska   |  listonosz   |   18                                      
+       Ola  |  Nowak     |  1990-05-06    |  żeńska  |  kucharka    |   15   
+       Ala  |  Kowal     |  1991-06-20    |  żeńska  |  kucharka    |   15
+       
+       
+      PO NORMALIZACJI
+       
+      imie  |  nazwisko  | data_urodzenia |  stanowisko  | płaca/h                            
+      ------------------------------------------------------------              
+       Jan  |  Kowalski  |  1980-10-15    |  listonosz   |   18                                      
+       Ola  |  Nowak     |  1990-05-06    |  kucharka    |   15   
+       Ala  |  Kowal     |  1991-06-20    |  kucharka    |   15
+      
+      
+      imie  |  płeć
+      ----------------
+       Jan  |  męska
+       Ola  |  żeńska
+       Ala  |  żeńska
+      
+      
 - 3NF (najczęściej używana)
+      Dla sprawdzenia, czy relacja będąca w drugiej postaci normalnej jest także w trzeciej,
+      bada się zależności między atrybutami niekluczowymi.
+      Atrybuty niekluczowe powinny zależeć funkcyjnie wyłącznie od klucza i niczego więcej.
+      Wykluczamy w ten sposób zależności przechodnie.
+      
+      PRZED NORMALIZACJĄ
+       
+      imie  |  nazwisko  | data_urodzenia |  stanowisko  | płaca/h                            
+      ------------------------------------------------------------              
+       Jan  |  Kowalski  |  1980-10-15    |  listonosz   |   18                                      
+       Ola  |  Nowak     |  1990-05-06    |  kucharka    |   15   
+       Ala  |  Kowal     |  1991-06-20    |  kucharka    |   15
+      
+      
+      PO NORMALIZACJI
+       
+      imie  |  nazwisko  | data_urodzenia |  stanowisko                         
+      --------------------------------------------------              
+       Jan  |  Kowalski  |  1980-10-15    |  listonosz                                   
+       Ola  |  Nowak     |  1990-05-06    |  kucharka   
+       Ala  |  Kowal     |  1991-06-20    |  kucharka 
+       
+       
+      stanowisko | płaca/h
+      --------------------
+      listonosz  |   18
+      kucharka   |   15
+      
+      
 - 3.5NF
 - 4NF
 - 5NF
