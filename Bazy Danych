@@ -175,12 +175,13 @@ Można wyszczególnić kilka postaci normalnych:
 
 6. W jaki sposób język SQL realizuje operację rzutu relacji a w jaki sposób realizuje operację wyboru (obcięcia) relacji? Jakie jeszcze znasz operacje i ich sposób realizacji w SQL?
 - operacja rzutu, wyciąga wybrane kolumny z danymi w tabeli:
+  Dozwolone są również wyrażenia/działania. Kolumny mogą występować wielokroenie:
   SELECT imie, nazwisko FROM klient;
   
-- operacja obcięcia, wyciąga wybraną encję z tabeli:
+- operacja obcięcia, tylko wiersze spełniające warunek:
   SELECT * FROM klient WHERE id=2;
   
-- operacja złączenia:
+- operacja złączenia - dane z kilku tabel są zbierane w jednej tabeli wynikowej (jest wyborem pasujących wierszy w iloczynie kartezjańskim):
   SELECT imie, nazwisko, zamowienie.nr AS zamowienie_nr
   FROM klient, zamowienie
   WHERE klient.nr=zamowienie.klient_nr;
