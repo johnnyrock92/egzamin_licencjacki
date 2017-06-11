@@ -195,6 +195,26 @@ Można wyszczególnić kilka postaci normalnych:
   SELECT imie, nazwisko, zamowienie.nr AS zamowienie_nr
   FROM klient INNER JOIN zamowienie ON klient.nr=zamowienie.klient_nr;
   
+* Złączenia wewnętrzne - wyniki tych zapytań zawierają jedynie wiersze spełniające warunek
+	- Złączenie naturalne: złączenie bazujące na identyczności nazw kolumn złączonych tablic.
+	- Złączenie proste: po klauzuli FORM po przecinku podanemy nazwy kolum
+```
+SELECT imie, nazwisko, zamowienie.nr
+FROM klient, zamowienie 
+WHERE klient.nr = zamowienie.klient_nr;
+'''
+	 - Złączenie INNER JOIN - działa jak złączenie proste, Konstrukcja z JOIN ... ON
+```
+SELECT imie, nazwisko, zamowienie.nr
+FROM klient INNER JOIN zamowienie 
+	ON klient.nr = zamowienie.klient_nr;
+```
+
+* Złączenia zewnątrzne: uwzględnienie w wyniku danych, które nie posiadają swoich odpowiedników w złączanych tabelach
+	- Left outer Join - 
+	- Right outer Join
+	- Full outer Join
+  
 - samozłączenie:
   SELECT Z1.nr AS zam1, Z2.nr AS zam2, Z2.klient_nr
   FROM zamowienie AS Z1, zamowienie Z2
