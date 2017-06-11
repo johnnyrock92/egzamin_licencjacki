@@ -5,6 +5,11 @@ SQL - Structured Query Language - STRUKTURALNY JĘZYK ZAPYTAŃ
 - Klucz obcy, (w SQLu: FOREIGN KEY)
 
 2. Jakie znasz warunki poprawności (więzy) dla tabel bazy danych?
+Więzy spójności to elementarne warunki na poprawność bazy danych, zapisane składniowo w definicji tabeli.
+* NOT NULL  - zakazuje umieszczania wartości pustych w kolumnie
+* UNIQUE  - mówi, że wartości w tej kolumnie/kolumnach są unikalne
+* PRIMARY KEY określa klucz główny. Równoważna jest deklaracji UNIQUE NOT NULL, no i może wystąpić tylko raz. 
+* CHECK warunek umożliwia podanie wyrażenia SQL, określającego dodatkowe ograniczenia na poprawność danych.
 - CHECK (price > 0)
 - CHECK (discounted_price > 0 AND price > discounted_price)
 
@@ -195,8 +200,16 @@ Można wyszczególnić kilka postaci normalnych:
   FROM zamowienie AS Z1, zamowienie Z2
   WHERE Z1.klient_nr=Z2.klient_nr AND Z1.nr < Z2.nr;
   
-- grupowanie:
+- funkcje agregujące są przeznaczone do obliczania wartości parametrów ,,statystycznych”,
+  takich jak średnia czy suma, dotyczących całej tabeli (lub wybranych grup wierszy), a nie pojedynczych wierszy:
+  
+- grupowanie wierszy na grupy w celu łatwiejszego obliczenia parametrów statystycznych dla wybranych podzbiorów wierszy:
   SELECT nazwisko FROM klient GROUP BY nazwisko HAVING count(nazwisko) > 1;
+  SELECT gatunek, AVG(waga) FROM Zwierz GROUP BY gatunek;
+  Warunkiem frazy WHERE można ograniczyć grupowanie tylko do wybranych wierszy:
+  SELECT gatunek, AVG(waga) FROM Zwierz, Gatunki WHERE kontynent = 'Afryka' GROUP BY gatunek;
+  Czasem jednak chcemy zastosować ograniczenie dla całych grup, a nie pojedynczych wierszy. Służy do tego fraza HAVING. 
+  SELECT gatunek FROM Zwierzaki GROUP BY gatunek HAVING COUNT(*) > 2;
 
 - zagnieżdżenie nieskorelowane:
   SELECT imie, nazwisko, miasto
